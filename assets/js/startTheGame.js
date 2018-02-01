@@ -2,7 +2,7 @@
 const pizzaWords = ["pepperoni", "crust", "cheese", "slice", "olives", "sauce",
     "mushrooms", "salami", "pie", "pizza", "napoli", "italian", "italy", "sausage",
     "chicago", "combination","margherita", "new york", "stromboli", "calzone",
-    "marinara","sicilian"];
+    "marinara","sicilian", "mama mia", "mozzarella", "chicago style"];
 
 var wins = 0;
 var loses = 0;
@@ -54,11 +54,7 @@ var hangManObj = {
     },
 
     checkIfSolved: function(){
-        this.updatedJumble.replace(/ /g, "");
-        // tmp = tmp.replace(/_/g, " ");
-        // console.log("checkIfSolved: word: " +this.word +" jumble: " +tmp);
-
-        return this.word === this.updatedJumble.replace(/_/g, "");
+        return this.word === this.updatedJumble.replace(/ /g, "").replace(/_/g, " ");
     }
 };
 
@@ -71,7 +67,7 @@ function onButtonClick(){
     document.getElementById("guessesLeft").innerHTML = "";
     
     var picNextWord = pizzaWords[(Math.floor(Math.random() * (pizzaWords.length - 1)))].toUpperCase();
-    picNextWord = "new york".toUpperCase();
+    //picNextWord = "new york".toUpperCase();
     
     console.log("Picked Word: " + picNextWord);
 
@@ -86,11 +82,8 @@ function onButtonClick(){
     
     document.getElementById("dispJumble").innerText = nextWord.updatedJumble;
 
-    // var wrongChar = "";
-
     console.log("guesses left: " +nextWord.guessesLeft);
 
-    
     document.onkeyup = function(event){
         var pressedKey = String.fromCharCode(event.which).toUpperCase();
         //check if char in word
@@ -128,13 +121,14 @@ function onButtonClick(){
 
 function disableKeyBoard(){
     document.onkeydown = function (e){
-        alert("Click Play Again to play another game!")
+        alert("Click Play Again to play another game!");
         return false;
     }
 }
 
 function enableKeyBoard(){
     document.onkeydown = function (e){
+        //alert("Click Play Again to play another game!");
         return true;
     }
 }
