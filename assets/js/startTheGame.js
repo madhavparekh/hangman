@@ -13,7 +13,7 @@ var hangManObj = {
     guessesLeft: 8,
     correctGuesses: 0,
     wrongChar: "",
-    spaceEntered: false,
+    guessedChar: "",
 
     blankJumble: function(){
         for(var i = 0; i < this.word.length; i++)
@@ -21,15 +21,6 @@ var hangManObj = {
     },
 
     updateJumble: function(keyInput){
-        //check to see if player already entered keyInput before
-        if(keyInput == " " && !this.spaceEntered){
-            this.spaceEntered = true;
-        }
-        else if(this.updatedJumble.indexOf(keyInput) !== -1){
-            alert("Already Entered. Enter another letter!");
-            return true;
-        }
-
         var i = this.word.indexOf(keyInput);
         
         if(i !== -1){
@@ -42,10 +33,6 @@ var hangManObj = {
                     this.correctGuesses++;
                 }
             }
-            return true;
-        }
-        else if(this.wrongChar.indexOf(keyInput) !== -1){
-            alert("Already Entered. Enter another letter!");
             return true;
         }
         else{
@@ -86,35 +73,45 @@ function onButtonClick(){
 
     document.onkeyup = function(event){
         var pressedKey = String.fromCharCode(event.which).toUpperCase();
-        //check if char in word
-        if(nextWord.updateJumble(pressedKey))
-            document.getElementById("dispJumble").innerText = nextWord.updatedJumble;
-        else{
-            nextWord.wrongChar += pressedKey;
-            document.getElementById("wrongChar").innerText = nextWord.wrongChar;
-            nextWord.wrongChar += ", ";
-            document.getElementById("guessesLeft").innerText = --nextWord.guessesLeft;
+
+        //check if char was already gusessed
+        if(nextWord.guessedChar.indexOf(pressedKey) !== -1){
+            alert("\"" +pressedKey + "\" already been entered. Try another character" );
         }
+        else{
+            //enter char into guessedChar
+            nextWord.guessedChar += pressedKey;
 
-        console.log("lenght of nextWord.currectGuesses :" +nextWord.correctGuesses );
+            //check if char in word
+            if(nextWord.updateJumble(pressedKey))
+                document.getElementById("dispJumble").innerText = nextWord.updatedJumble;
+            else{
+                nextWord.wrongChar += pressedKey;
+                document.getElementById("wrongChar").innerText = nextWord.wrongChar;
+                nextWord.wrongChar += ", ";
+                document.getElementById("guessesLeft").innerText = --nextWord.guessesLeft;
+            }
 
-        if(nextWord.correctGuesses === nextWord.word.length){
-            if(nextWord.checkIfSolved()){
-                console.log("Yay Solved!");
-                document.getElementById("wins").innerText = ++wins;
+            console.log("lenght of nextWord.currectGuesses :" +nextWord.correctGuesses );
+
+            if(nextWord.correctGuesses === nextWord.word.length){
+                if(nextWord.checkIfSolved()){
+                    console.log("Yay Solved!");
+                    document.getElementById("wins").innerText = ++wins;
+                    document.getElementById("startGame").innerText = "Play Again";
+                    document.getElementById("startGame").disabled = false;
+                }
+                //disableling keyboard
+                disableKeyBoard();
+                
+            } else if(nextWord.guessesLeft < 1) {
+                console.log("Not Solved!");
+                document.getElementById("loses").innerText = ++loses;
                 document.getElementById("startGame").innerText = "Play Again";
                 document.getElementById("startGame").disabled = false;
+                //disableling keyboard
+                disableKeyBoard();
             }
-            //disableling keyboard
-            disableKeyBoard();
-            
-        } else if(nextWord.guessesLeft < 1) {
-            console.log("Not Solved!");
-            document.getElementById("loses").innerText = ++loses;
-            document.getElementById("startGame").innerText = "Play Again";
-            document.getElementById("startGame").disabled = false;
-            //disableling keyboard
-            disableKeyBoard();
         }
     }
 }
