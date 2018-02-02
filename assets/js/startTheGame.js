@@ -70,7 +70,7 @@ function onButtonClick(){
     
     document.getElementById("dispJumble").textContent = nextWord.updatedJumble;
 
-    console.log("guesses left: " +nextWord.guessesLeft);
+    document.getElementById("hangManPic").src = "assets/images/hm1.png"; 
 
     document.onkeyup = function(event){
         var pressedKey = String.fromCharCode(event.which).toUpperCase();
