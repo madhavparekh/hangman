@@ -12,6 +12,15 @@
 
 </head>
 <body>
+    <audio id="winner">
+        <source src="assets/audio/winner.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="loser">
+        <source src="assets/audio/loser.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+    
     <div class="jumbotron jumbotron-fluid text-center">
         <h2 class="display-3" >Hangman - Pizza Parlor</h2>
         <p class="lead">Words are related to Pizza & origin of Pizza</p>
@@ -20,22 +29,34 @@
             <a class="btn btn-primary btn-lg" onclick="onButtonClick()" id="startGame" role="button">Play</a>
         </p>
     </div>
-    <!-- <button onclick="onButtonClick()" id="startGame">Play</button> -->
-    <div id="puzzle" class="container">
-        <div class="text-center">
+    <div id="puzzle" class="container-fluid-sm">
+        <div class="my-2 text-center">
             <img src="assets/images/hm1.png" id="hangManPic" class="img-fluid" alt="" width="200" height="300">
         </div>
         <h3 class="text-center">Solve : <span class="badge badge-secondary" id="dispJumble">&nbsp</span></h3>
         <h3 class="text-center">Wrong : <span class="badge badge-secondary" id="wrongChar">&nbsp</span></h3>
-        <div class="row justify-content-md-center">
+        <div class="row text-center mx-auto">
             <div class="col col-sm-3">
-                <h3 class="text-center">Wins : <span class="badge badge-secondary" id="wins">0</span></h3>
+                <button type="button" class="btn btn-success">
+                    <h3>
+                        Wins <span class="badge badge-light" id="wins">0</span>
+                    </h3>
+                </button>
+
             </div>
             <div class="col col-sm-6">
-                <h3 class="text-center">Guesses Left : <span class="badge badge-secondary" id="guessesLeft">8</span></h3>
+                <button type="button" class="btn btn-warning">
+                    <h3>
+                        Guesses Left <span class="badge badge-light" id="guessesLeft">8</span>
+                    </h3>
+                </button>
             </div>
             <div class="col col-sm-3">
-                <h3 class="text-center">Loses : <span class="badge badge-secondary" id="loses">0</span></h3>
+                <button type="button" class="btn btn-danger">
+                    <h3>
+                        Loses <span class="badge badge-light" id="loses">0</span>
+                    </h3>
+                </button>
             </div>
         </div>
     </div>

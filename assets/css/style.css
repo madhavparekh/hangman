@@ -1,0 +1,16 @@
+body{
+    background: url("../images/pizza_bg2.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 70%;
+    margin: 0 auto;
+}
+
+#puzzle{
+    width: 75%;
+    background-color: darkgray;
+    opacity: 0.7;
+    margin: 0 auto;
+}
