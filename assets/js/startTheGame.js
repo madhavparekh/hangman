@@ -6,6 +6,7 @@ const pizzaWords = ["pepperoni", "crust", "cheese", "slice", "olives", "sauce",
 
 var wins = 0;
 var loses = 0;
+var disableInput = false;
 
 var hangManObj = {
     word: "",
@@ -47,8 +48,8 @@ var hangManObj = {
 
 function onButtonClick(){
     
-    document.getElementById("startGame").disabled = true;
-    enableKeyBoard();
+    // document.getElementById("startGame").disabled = true;
+    disableInput = false;
 
     document.getElementById("dispJumble").textContent = " ";
     document.getElementById("wrongChar").textContent = " ";
@@ -74,67 +75,59 @@ function onButtonClick(){
     document.getElementById("hangManPic").src = "assets/images/hm1.png"; 
 
     document.onkeyup = function(event){
-        var pressedKey = String.fromCharCode(event.which).toUpperCase();
+        
+        if(!disableInput){
+            var pressedKey = String.fromCharCode(event.which).toUpperCase();
 
-        //check if char was already gusessed
-        if(nextWord.guessedChar.indexOf(pressedKey) !== -1){
-            alert('"' +pressedKey + ' already been entered. Try another character');
-        }
-        else{
-            //enter char into guessedChar
-            nextWord.guessedChar += pressedKey;
-
-            //check if char in word
-            if(nextWord.updateJumble(pressedKey))
-                document.getElementById("dispJumble").textContent = nextWord.updatedJumble;
-                
-            else{
-                nextWord.wrongChar += pressedKey;
-                document.getElementById("wrongChar").textContent = nextWord.wrongChar;
-                nextWord.wrongChar += ", ";
-                document.getElementById("guessesLeft").textContent = --nextWord.guessesLeft;
-                document.getElementById("hangManPic").src = "assets/images/hm" + (9 - nextWord.guessesLeft) + ".png";
+            //check if char was already gusessed
+            if(nextWord.guessedChar.indexOf(pressedKey) !== -1){
+                alert('"' +pressedKey + ' already been entered. Try another character');
             }
+            else{
+                //enter char into guessedChar
+                nextWord.guessedChar += pressedKey;
 
-            console.log("lenght of nextWord.currectGuesses :" +nextWord.correctGuesses );
+                //check if char in word
+                if(nextWord.updateJumble(pressedKey))
+                    document.getElementById("dispJumble").textContent = nextWord.updatedJumble;
+                    
+                else{
+                    nextWord.wrongChar += pressedKey;
+                    document.getElementById("wrongChar").textContent = nextWord.wrongChar;
+                    nextWord.wrongChar += ", ";
+                    document.getElementById("guessesLeft").textContent = --nextWord.guessesLeft;
+                    document.getElementById("hangManPic").src = "assets/images/hm" + (9 - nextWord.guessesLeft) + ".png";
+                }
 
-            if(nextWord.correctGuesses === nextWord.word.length){
-                if(nextWord.checkIfSolved()){
-                    console.log("Yay Solved!");
-                    document.getElementById("hangManPic").src = "assets/images/win.gif";
-                    document.getElementById("winner").play();
-                    document.getElementById("wins").textContent = ++wins;
+                console.log("lenght of nextWord.currectGuesses :" +nextWord.correctGuesses );
+
+                if(nextWord.correctGuesses === nextWord.word.length){
+                    if(nextWord.checkIfSolved()){
+                        console.log("Yay Solved!");
+                        document.getElementById("hangManPic").src = "assets/images/win.gif";
+                        document.getElementById("winner").play();
+                        document.getElementById("wins").textContent = ++wins;
+                        document.getElementById("startGame").textContent = "Play Again";
+                        document.getElementById("startGame").disabled = false;
+                    }
+                    //disableling keyboard
+                    disableInput = true;
+                    
+                } else if(nextWord.guessesLeft < 1) {
+                    console.log("Not Solved!");
+                    document.getElementById("hangManPic").src = "assets/images/lose.gif";
+                    document.getElementById("loser").play();
+                    document.getElementById("loses").textContent = ++loses;
                     document.getElementById("startGame").textContent = "Play Again";
                     document.getElementById("startGame").disabled = false;
+                    //disableling keyboard
+                    disableInput = true;
                 }
-                //disableling keyboard
-                disableKeyBoard();
-                
-            } else if(nextWord.guessesLeft < 1) {
-                console.log("Not Solved!");
-                document.getElementById("hangManPic").src = "assets/images/lose.gif";
-                document.getElementById("loser").play();
-                document.getElementById("loses").textContent = ++loses;
-                document.getElementById("startGame").textContent = "Play Again";
-                document.getElementById("startGame").disabled = false;
-                //disableling keyboard
-                disableKeyBoard();
             }
-            
         }
-    }
-}
-
-function disableKeyBoard(){
-    document.onkeydown = function (e){
-        alert("Click Play Again to play another game!");
-        return false;
-    }
-}
-
-function enableKeyBoard(){
-    document.onkeydown = function (e){
-        //alert("Click Play Again to play another game!");
-        return true;
+        else{
+            alert("Click Play Again to play another game!");        
+        }
+        
     }
 }
