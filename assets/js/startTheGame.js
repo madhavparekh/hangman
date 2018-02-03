@@ -53,6 +53,7 @@ function onButtonClick(){
     document.getElementById("dispJumble").textContent = " ";
     document.getElementById("wrongChar").textContent = " ";
     document.getElementById("guessesLeft").textContent = "8";
+    document.getElementById("hangManPic").src = "assets/images/hm1.png";
     
     var picNextWord = pizzaWords[(Math.floor(Math.random() * (pizzaWords.length - 1)))].toUpperCase();
     //picNextWord = "new york".toUpperCase();
