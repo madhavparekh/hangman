@@ -20,7 +20,16 @@
         <source src="assets/audio/loser.wav" type="audio/wav">
         Your browser does not support the audio element.
     </audio>
-    
+    <audio id="correct">
+        <source src="assets/audio/correct-ding.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <audio id="wrong">
+        <source src="assets/audio/wrong-ding.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+
     <div class="jumbotron jumbotron-fluid m-auto mb-5 text-center">
         <h2 class="display-3" >Hangman - Pizza Parlor</h2>
         <p class="lead">Words are related to Pizza & origin of Pizza</p>
@@ -47,8 +56,8 @@
                 </strong>
             </button>
         </div>
-        <div class="row text-center mx-auto py-2">
-            <div class="col col-sm-3">
+        <div class="row text-center justify-content-around mx-0">
+            <div class="col col-sm-2">
                 <button type="button" class="btn btn-success">
                     <strong>
                         Wins <span class="badge badge-light" id="wins">0</span>
@@ -56,14 +65,14 @@
                 </button>
 
             </div>
-            <div class="col col-sm-6">
+            <div class="col col-sm-2">
                 <button type="button" class="btn btn-warning">
                     <strong>
                         Lifes <span class="badge badge-light" id="guessesLeft">8</span>
                     </strong>
                 </button>
             </div>
-            <div class="col col-sm-3">
+            <div class="col col-sm-2">
                 <button type="button" class="btn btn-danger">
                     <strong>
                         Loses <span class="badge badge-light" id="loses">0</span>

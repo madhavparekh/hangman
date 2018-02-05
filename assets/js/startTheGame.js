@@ -88,10 +88,12 @@ function onButtonClick(){
                 nextWord.guessedChar += pressedKey;
 
                 //check if char in word
-                if(nextWord.updateJumble(pressedKey))
+                if(nextWord.updateJumble(pressedKey)){
+                    document.getElementById("correct").play();
                     document.getElementById("dispJumble").textContent = nextWord.updatedJumble;
-                    
+                }    
                 else{
+                    document.getElementById("wrong").play();
                     nextWord.wrongChar += pressedKey;
                     document.getElementById("wrongChar").textContent = nextWord.wrongChar;
                     nextWord.wrongChar += ", ";
@@ -103,9 +105,9 @@ function onButtonClick(){
 
                 if(nextWord.correctGuesses === nextWord.word.length){
                     if(nextWord.checkIfSolved()){
+                        document.getElementById("winner").play();
                         console.log("Yay Solved!");
                         document.getElementById("hangManPic").src = "assets/images/win.gif";
-                        document.getElementById("winner").play();
                         document.getElementById("wins").textContent = ++wins;
                         document.getElementById("startGame").textContent = "Play Again";
                         document.getElementById("startGame").disabled = false;
@@ -114,9 +116,9 @@ function onButtonClick(){
                     disableInput = true;
                     
                 } else if(nextWord.guessesLeft < 1) {
+                    document.getElementById("loser").play();
                     console.log("Not Solved!");
                     document.getElementById("hangManPic").src = "assets/images/lose.gif";
-                    document.getElementById("loser").play();
                     document.getElementById("loses").textContent = ++loses;
                     document.getElementById("startGame").textContent = "Play Again";
                     document.getElementById("startGame").disabled = false;
