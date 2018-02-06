@@ -8,6 +8,7 @@ var wins = 0;
 var loses = 0;
 var disableInput = false;
 
+//each game is an object
 var hangManObj = {
     word: "",
     updatedJumble: "",
@@ -15,12 +16,14 @@ var hangManObj = {
     correctGuesses: 0,
     wrongChar: "",
     guessedChar: "",
-
+    
+    //blank jumble to display
     blankJumble: function(){
         for(var i = 0; i < this.word.length; i++)
             this.updatedJumble += " _";
     },
 
+    //checking and updating jumble if char is within word
     updateJumble: function(keyInput){
         var i = this.word.indexOf(keyInput);
         
@@ -41,6 +44,7 @@ var hangManObj = {
         }
     },
 
+    //absolute matching word agains solved jumble
     checkIfSolved: function(){
         return this.word === this.updatedJumble.replace(/ /g, "").replace(/_/g, " ");
     }
@@ -48,7 +52,7 @@ var hangManObj = {
 
 function onButtonClick(){
     
-    // document.getElementById("startGame").disabled = true;
+    //enabling input
     disableInput = false;
 
     document.getElementById("dispJumble").textContent = " ";
@@ -56,8 +60,8 @@ function onButtonClick(){
     document.getElementById("guessesLeft").textContent = "8";
     document.getElementById("hangManPic").src = "assets/images/hm1.png";
     
+    //picking a random word from list of array
     var picNextWord = pizzaWords[(Math.floor(Math.random() * (pizzaWords.length - 1)))].toUpperCase();
-    //picNextWord = "new york".toUpperCase();
     
     console.log("Picked Word: " + picNextWord);
 
@@ -67,11 +71,12 @@ function onButtonClick(){
     nextWord.word = picNextWord;
     console.log("Word set to: " + nextWord.word);
     
-    //creating new jumble
+    //creating new jumble with dashes
     nextWord.blankJumble();
     
     document.getElementById("dispJumble").textContent = nextWord.updatedJumble;
 
+    //start of image display 
     document.getElementById("hangManPic").src = "assets/images/hm1.png"; 
 
     document.onkeyup = function(event){
@@ -93,17 +98,20 @@ function onButtonClick(){
                     document.getElementById("dispJumble").textContent = nextWord.updatedJumble;
                 }    
                 else{
+                    
                     document.getElementById("wrong").play();
                     nextWord.wrongChar += pressedKey;
                     document.getElementById("wrongChar").textContent = nextWord.wrongChar;
                     nextWord.wrongChar += ", ";
                     document.getElementById("guessesLeft").textContent = --nextWord.guessesLeft;
+                    //updating hangman pic
                     document.getElementById("hangManPic").src = "assets/images/hm" + (9 - nextWord.guessesLeft) + ".png";
                 }
 
                 console.log("lenght of nextWord.currectGuesses :" +nextWord.correctGuesses );
 
                 if(nextWord.correctGuesses === nextWord.word.length){
+                    //On winning play music and display GIF
                     if(nextWord.checkIfSolved()){
                         document.getElementById("winner").play();
                         console.log("Yay Solved!");
@@ -116,6 +124,7 @@ function onButtonClick(){
                     disableInput = true;
                     
                 } else if(nextWord.guessesLeft < 1) {
+                    //On losing play music and display GIF
                     document.getElementById("loser").play();
                     console.log("Not Solved!");
                     document.getElementById("hangManPic").src = "assets/images/lose.gif";
