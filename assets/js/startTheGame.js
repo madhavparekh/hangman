@@ -82,7 +82,7 @@ function onButtonClick(){
     document.onkeyup = function(event){
 
         if(!disableInput){
-            if((event.keyCode > 64 && event.keyCode < 91) || (event.keyCode > 96 && event.keyCode < 123)){
+            if(event.keyCode > 64 && event.keyCode < 91){
                 var pressedKey = String.fromCharCode(event.which).toUpperCase();
 
                 //check if char was already gusessed
