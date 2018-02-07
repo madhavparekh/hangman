@@ -82,7 +82,7 @@ function onButtonClick(){
     document.onkeyup = function(event){
 
         if(!disableInput){
-            if(event.keyCode > 64 && event.keyCode < 91){
+            if(event.keyCode > 64 && event.keyCode < 91 || event.keyCode === 32){
                 var pressedKey = String.fromCharCode(event.which).toUpperCase();
 
                 //check if char was already gusessed
@@ -138,7 +138,7 @@ function onButtonClick(){
                 }
             }
             else{
-                alert('Enter keys between "a" thru "z" only');
+                alert('Enter keys between "a" thru "z" OR SPACE only');
             }
         }
         else{
